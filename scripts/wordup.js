@@ -141,7 +141,7 @@ function render() {
     // clear stuff
     $("#allowed-letters").empty();
     $("#word-submissions").empty();
-    $("#textbox").removeClass(".bad-attempt");
+    $("#textbox").removeClass("bad-attempt");
     $(".disallowed-letter").remove();
     $("#textbox").prop("disabled", false);
     // TODO 10
@@ -178,7 +178,7 @@ function render() {
 
         // TODO 8
         // append the red letter chips to the form
-        $("#word-attempt-form").append(disallowedLetterChip);
+        $("#word-attempt-form").append(redLetterChips);
     }
 
     // if the game is over
