@@ -54,7 +54,11 @@ function addNewWordSubmission(word) {
     // TODO 21
     // replace the hardcoded 'false' with the real answer
     var alreadyUsed = false;
-
+    model.wordSubmissions.find(function(wordSubmission) {
+        if (wordSubmission.word == word) {
+            alreadyUsed = true;
+        }
+    });
     // if the word is valid and hasn't already been used, add it
     if (containsOnlyAllowedLetters(word) && alreadyUsed == false) {
         model.wordSubmissions.push({ word: word });
@@ -214,19 +218,29 @@ function wordSubmissionChip(wordSubmission) {
     var wordChip = $("<span></span>")
         .text(wordSubmission.word)
         .attr("class", "tag tag-lg word-submission");
+       // .attr("class", "tag tag-lg word-submission");
 
     // if we know the status of this word (real word or not), then add a green score or red X
     if (wordSubmission.hasOwnProperty("isRealWord")) {
-        var scoreChip = $("<span></span>").text("⟐");
+        var chipText = "";
+            
         // TODO 17
         // give the scoreChip appropriate text content
-
+        var scoreChip = $("<span class = \"tag tag-sm\"></span>");
         // TODO 18
         // give the scoreChip appropriate css classes
+        if (wordSubmission.isRealWord == true) {
 
+            chipText = wordScore(wordSubmission.word);  
+            scoreChip.addClass("tag-primary"); 
+        } else {
+            chipText = "X";
+            scoreChip.addClass("tag-danger");
+        }
+        scoreChip.text(chipText);
         // TODO 16
         // append scoreChip into wordChip
-
+        $(wordChip).append(scoreChip);
     }
 
     return wordChip;
@@ -352,7 +366,9 @@ function wordScore(word) {
     // TODO 19
     // Replace the empty list below.
     // Map the list of letters into a list of scores, one for each letter.
-    var letterScores = [];
+    var letterScores = letters.map(function(letter) {
+        return letterScore(letter);
+    });
 
     // return the total sum of the letter scores
     return letterScores.reduce(add, 0);
@@ -376,7 +392,9 @@ function currentScore() {
 
     // TODO 20
     // return the total sum of the word scores
-    return 0;
+    return wordScores.reduce(function (wordScoreTotal, wordScore) {
+        return wordScoreTotal + wordScore;
+    }, 0);
 }
 
 

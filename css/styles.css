@@ -6,8 +6,8 @@ body {
 
 .jumbotron {
     padding: 2%;
-    background: orange;
-    color: #fff;
+    background: #2292A4;
+    color: #FFA94F;
 }
 
 main {
@@ -38,6 +38,14 @@ main {
 .tag-sm {
     font-size: 14px;
     margin-left: 0.4em;
+}
+
+.background-blue {
+    background-color: blue;
+}
+
+.background-red {
+    background-color: red;
 }
 
 .word-submission {
